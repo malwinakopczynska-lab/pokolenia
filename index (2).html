@@ -1,0 +1,1415 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@300;400;600&display=swap');
+
+  :root {
+    --bb: #1a1a2e;
+    --bb2: #16213e;
+    --bb3: #0f3460;
+    --acc: #e94560;
+    --acc2: #f5a623;
+    --acc3: #4ecdc4;
+    --acc4: #a8e6cf;
+    --text: #f0f0f0;
+    --muted: #aaa;
+    --card-bg: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--bb);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 50%, #16213e 100%);
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    border-bottom: 2px solid var(--acc);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(233,69,96,0.07) 0%, transparent 70%);
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    position: relative;
+  }
+
+  .hero h1 span { color: var(--acc); }
+
+  .hero p {
+    color: var(--muted);
+    font-size: 1rem;
+    font-weight: 300;
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .nav-tabs {
+    display: flex;
+    gap: 0;
+    background: rgba(0,0,0,0.3);
+    border-radius: 50px;
+    padding: 4px;
+    width: fit-content;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .nav-tab {
+    padding: 8px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+    color: var(--muted);
+    border: none;
+    background: none;
+    text-transform: uppercase;
+  }
+
+  .nav-tab.active {
+    background: var(--acc);
+    color: #fff;
+  }
+
+  .section { display: none; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  .section.active { display: block; }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: #fff;
+    margin-bottom: 0.4rem;
+    margin-top: 2rem;
+  }
+
+  .section-title:first-child { margin-top: 0; }
+
+  .section-subtitle {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.8rem;
+    font-weight: 300;
+  }
+
+  .gen-card {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    background: var(--card-bg);
+  }
+
+  .gen-header {
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+  }
+
+  .gen-header:hover { background: rgba(255,255,255,0.04); }
+
+  .gen-badge {
+    font-size: 1.6rem;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .gen-header-text { flex: 1; }
+
+  .gen-header-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 2px;
+    color: #fff;
+  }
+
+  .gen-header-text span {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .gen-toggle {
+    font-size: 1.2rem;
+    color: var(--muted);
+    transition: transform 0.3s;
+  }
+
+  .gen-body {
+    display: none;
+    padding: 0 1.5rem 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .gen-body.open { display: block; }
+
+  .gen-toggle.open { transform: rotate(180deg); }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.2rem;
+  }
+
+  .info-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+
+  .info-box h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+  }
+
+  .info-box p, .info-box li {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #ddd;
+  }
+
+  .info-box ul { padding-left: 1rem; }
+  .info-box li { margin-bottom: 0.3rem; }
+
+  .info-box.full { grid-column: 1 / -1; }
+
+  .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.4rem; }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    border: 1px solid;
+  }
+
+  .tension-box {
+    background: rgba(233,69,96,0.08);
+    border: 1px solid rgba(233,69,96,0.3);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+
+  .tension-box h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #e94560;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+  }
+
+  .plus-box {
+    background: rgba(78,205,196,0.08);
+    border: 1px solid rgba(78,205,196,0.3);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+
+  .plus-box h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #4ecdc4;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+  }
+
+  .tension-box p, .plus-box p { font-size: 0.9rem; color: #ddd; line-height: 1.6; }
+  .tension-box li, .plus-box li { font-size: 0.9rem; color: #ddd; margin-bottom: 0.3rem; }
+  .tension-box ul, .plus-box ul { padding-left: 1rem; }
+
+  /* === QUIZ SECTION === */
+
+  .quiz-intro {
+    background: rgba(245,166,35,0.08);
+    border: 1px solid rgba(245,166,35,0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .quiz-intro h3 {
+    color: var(--acc2);
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 0.5rem;
+  }
+
+  .quiz-intro p { color: #ddd; font-size: 0.95rem; }
+
+  .quiz-question {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .quiz-question p {
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: #fff;
+    font-size: 0.95rem;
+  }
+
+  .quiz-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 6px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    font-size: 0.88rem;
+    color: #ddd;
+  }
+
+  .quiz-option:hover { background: rgba(255,255,255,0.05); border-color: var(--border); }
+
+  .quiz-option input { margin-top: 2px; flex-shrink: 0; accent-color: var(--acc); }
+
+  .quiz-option.selected { background: rgba(233,69,96,0.1); border-color: rgba(233,69,96,0.4); color: #fff; }
+
+  .quiz-btn {
+    background: var(--acc);
+    color: #fff;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+    margin-top: 1rem;
+    display: block;
+    width: 100%;
+  }
+
+  .quiz-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+  .quiz-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .result-box {
+    display: none;
+    background: rgba(255,255,255,0.05);
+    border: 2px solid var(--acc);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+
+  .result-box.show { display: block; }
+
+  .result-gen {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .result-desc {
+    font-size: 0.95rem;
+    color: #ddd;
+    max-width: 500px;
+    margin: 0 auto 1rem;
+    line-height: 1.6;
+  }
+
+  .result-tips {
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    padding: 1.2rem;
+    text-align: left;
+    margin-top: 1rem;
+  }
+
+  .result-tips h4 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 0.8rem;
+  }
+
+  .result-tips li { font-size: 0.88rem; color: #ddd; margin-bottom: 0.4rem; line-height: 1.5; }
+  .result-tips ul { padding-left: 1.2rem; }
+
+  /* === EXERCISE 2 === */
+
+  .comm-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .comm-select-btn {
+    border: 2px solid var(--border);
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.25s;
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+  }
+
+  .comm-select-btn:hover { border-color: var(--acc2); }
+  .comm-select-btn.active { border-color: var(--acc2); background: rgba(245,166,35,0.1); }
+  .comm-select-btn .gen-icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
+  .comm-select-btn strong { display: block; font-size: 0.9rem; color: #fff; margin-bottom: 2px; }
+  .comm-select-btn small { font-size: 0.78rem; color: var(--muted); }
+
+  .comm-result {
+    display: none;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .comm-result.show { display: block; }
+
+  .comm-result h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--acc2);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .comm-tip {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 0.8rem;
+    font-size: 0.88rem;
+    align-items: flex-start;
+    color: #ddd;
+  }
+
+  .comm-tip-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    margin-top: 1px;
+    font-weight: 700;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+
+  .mgmt-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+
+  .mgmt-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem;
+  }
+
+  .mgmt-card h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mgmt-card ul { padding-left: 1.2rem; }
+  .mgmt-card li { font-size: 0.85rem; color: #ddd; margin-bottom: 0.35rem; line-height: 1.5; }
+
+  .comparison-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0.6rem;
+    font-size: 0.82rem;
+  }
+
+  .comparison-bar label { width: 120px; color: var(--muted); flex-shrink: 0; }
+
+  .bar-wrap { flex: 1; background: rgba(255,255,255,0.08); border-radius: 4px; height: 8px; }
+
+  .bar-fill { height: 8px; border-radius: 4px; transition: width 0.5s; }
+
+  .label-right { width: 36px; text-align: right; color: #ddd; font-weight: 600; }
+
+  .scenario-box {
+    background: rgba(0,0,0,0.25);
+    border-left: 3px solid var(--acc2);
+    padding: 1rem 1.2rem;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 1rem;
+    font-size: 0.88rem;
+    color: #ddd;
+    line-height: 1.6;
+  }
+
+  .scenario-box strong { color: var(--acc2); }
+
+  .tab-label {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .progress-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+  }
+
+  .progress-stat { text-align: center; flex: 1; }
+  .progress-stat .num { font-size: 1.8rem; font-weight: 700; font-family: 'Playfair Display', serif; color: var(--acc); }
+  .progress-stat .lbl { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Generation colors */
+  .gen-bb { background: rgba(90,50,200,0.15); border-color: rgba(90,50,200,0.4); }
+  .gen-bb .gen-badge { background: rgba(90,50,200,0.25); color: #b39ddb; border: 2px solid rgba(90,50,200,0.5); font-size: 1rem; }
+  .gen-bb .gen-header-text h3 { color: #b39ddb; }
+
+  .gen-x { background: rgba(20,120,180,0.12); border-color: rgba(20,120,180,0.35); }
+  .gen-x .gen-badge { background: rgba(20,120,180,0.25); color: #80cbc4; border: 2px solid rgba(20,120,180,0.5); font-size: 1rem; }
+  .gen-x .gen-header-text h3 { color: #80cbc4; }
+
+  .gen-mil { background: rgba(233,69,96,0.1); border-color: rgba(233,69,96,0.35); }
+  .gen-mil .gen-badge { background: rgba(233,69,96,0.2); color: #f48fb1; border: 2px solid rgba(233,69,96,0.5); font-size: 1rem; }
+  .gen-mil .gen-header-text h3 { color: #f48fb1; }
+
+  .gen-z { background: rgba(78,205,196,0.1); border-color: rgba(78,205,196,0.35); }
+  .gen-z .gen-badge { background: rgba(78,205,196,0.2); color: #4ecdc4; border: 2px solid rgba(78,205,196,0.5); font-size: 1rem; }
+  .gen-z .gen-header-text h3 { color: #4ecdc4; }
+
+  .gen-alpha { background: rgba(245,166,35,0.1); border-color: rgba(245,166,35,0.35); }
+  .gen-alpha .gen-badge { background: rgba(245,166,35,0.2); color: #ffd54f; border: 2px solid rgba(245,166,35,0.5); font-size: 1rem; }
+  .gen-alpha .gen-header-text h3 { color: #ffd54f; }
+
+  .tag-bb { background: rgba(90,50,200,0.2); color: #b39ddb; border-color: rgba(90,50,200,0.4); }
+  .tag-x { background: rgba(20,120,180,0.2); color: #80cbc4; border-color: rgba(20,120,180,0.4); }
+  .tag-mil { background: rgba(233,69,96,0.2); color: #f48fb1; border-color: rgba(233,69,96,0.4); }
+  .tag-z { background: rgba(78,205,196,0.2); color: #4ecdc4; border-color: rgba(78,205,196,0.4); }
+  .tag-alpha { background: rgba(245,166,35,0.2); color: #ffd54f; border-color: rgba(245,166,35,0.4); }
+
+  .note {
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-top: 1rem;
+    font-style: italic;
+  }
+
+  @media (max-width: 600px) {
+    .info-grid { grid-template-columns: 1fr; }
+    .comm-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 1.5rem; }
+  }
+</style>
+
+<div class="hero">
+  <h1>Pokolenia na <span>Rynku Pracy</span></h1>
+  <p>Materiał szkoleniowy — Część 1: Wiedza · Część 2: Ćwiczenia praktyczne</p>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="switchTab('theory')">Część 1 — Wiedza</button>
+    <button class="nav-tab" onclick="switchTab('quiz')">Ćw. 1 — Kim jestem?</button>
+    <button class="nav-tab" onclick="switchTab('comm')">Ćw. 2 — Komunikacja</button>
+    <button class="nav-tab" onclick="switchTab('mgmt')">Ćw. 3 — Zarządzanie</button>
+  </div>
+</div>
+
+<!-- ======================== PART 1: THEORY ======================== -->
+<div id="tab-theory" class="section active">
+
+  <p class="section-title">Wstęp: Dlaczego pokolenia mają znaczenie?</p>
+  <p class="section-subtitle">Kontekst historyczny i praktyczne znaczenie dla zespołów</p>
+
+  <div class="info-box" style="margin-bottom:1.5rem; border-color: rgba(245,166,35,0.3); background: rgba(245,166,35,0.05);">
+    <p style="font-size:0.95rem; color:#eee; line-height:1.7;">
+      Po raz pierwszy w historii na rynku pracy współistnieje <strong style="color:#ffd54f;">pięć pokoleń</strong> jednocześnie. Od doświadczonych Baby Boomersów, przez pragmatycznych Xów, aż po cyfrowo native'ów z Generacji Z — każda grupa wniosła do pracy swój unikatowy system wartości, ukształtowany przez konkretne wydarzenia historyczne, technologię i kulturę. Rozumienie tych różnic nie jest celem samym w sobie — to narzędzie do lepszego przywództwa, efektywniejszej komunikacji i budowania zespołów, które naprawdę grają razem.
+    </p>
+    <p style="font-size:0.85rem; color: var(--muted); margin-top:0.8rem; font-style:italic;">
+      Ważna uwaga: Generacje to narzędzie analityczne, nie szufladka. Każda osoba to indywidualność — cechy pokoleniowe opisują tendencje i prawdopodobne wzorce, nie determinizm. Używaj tej wiedzy jako punktu wyjścia do zrozumienia, nie jako etykietki.
+    </p>
+  </div>
+
+  <!-- BABY BOOMERS -->
+  <div class="gen-card gen-bb">
+    <div class="gen-header" onclick="toggleGen('bb')">
+      <div class="gen-badge">BB</div>
+      <div class="gen-header-text">
+        <h3>Baby Boomers</h3>
+        <span>Urodzeni 1946–1964 · Wiek: ok. 60–78 lat · Dzisiaj: seniorzy, liderzy, doradcy, część aktywna zawodowo</span>
+      </div>
+      <div class="gen-toggle" id="toggle-bb">▼</div>
+    </div>
+    <div class="gen-body" id="body-bb">
+      <div class="info-grid">
+        <div class="info-box">
+          <h4>Kontekst historyczny — co ich ukształtowało?</h4>
+          <p>Urodzili się w epoce powojennej odbudowy i boomu ekonomicznego. Dorastali w czasie zimnej wojny, wyścigu kosmicznego i pierwszych telewizorów. W Polsce — epoka PRL, niedobory, solidarność, praca jako moralny obowiązek. Praca była przywilejem, nie prawem. Awans wymagał lat lojalności.</p>
+        </div>
+        <div class="info-box">
+          <h4>Stosunek do pracy</h4>
+          <ul>
+            <li>Praca jako powołanie i tożsamość — <em>"jestem tym, co robię"</em></li>
+            <li>Lojalność wobec pracodawcy; długi staż w jednej firmie jest normą</li>
+            <li>Silna etyka pracy — długie godziny nie są problemem</li>
+            <li>Hierarchia i tytuły mają znaczenie symboliczne</li>
+            <li>Awans przez wytrwałość i czas spędzony w organizacji</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h4>Stosunek do życia prywatnego</h4>
+          <ul>
+            <li>Rodzina jako fundament, ale praca często na pierwszym miejscu</li>
+            <li>Materialny sukces jako miara udanego życia</li>
+            <li>Silne przywiązanie do tradycji i konwenansów</li>
+            <li>Rola płciowa często tradycyjna (zwłaszcza starsi BB)</li>
+            <li>Emerytura jako cel i nagroda za lata pracy</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h4>Cechy charakterystyczne</h4>
+          <div class="tag-list">
+            <span class="tag tag-bb">Pracowitość</span>
+            <span class="tag tag-bb">Lojalność</span>
+            <span class="tag tag-bb">Szacunek do autorytetu</span>
+            <span class="tag tag-bb">Orientacja na wyniki</span>
+            <span class="tag tag-bb">Dyplomacja</span>
+            <span class="tag tag-bb">Doświadczenie</span>
+            <span class="tag tag-bb">Stabilność</span>
+          </div>
+        </div>
+        <div class="info-box full">
+          <h4>Styl komunikacji i zarządzania</h4>
+          <p>Preferują komunikację bezpośrednią — spotkania twarzą w twarz, telefony. E-mail akceptują, ale social media i narzędzia zespołowe budzą opór. W zarządzaniu stosują styl hierarchiczny: decyzje spływają z góry, konsultacje są rzadkością. Oczekują, że podwładni słuchają poleceń, a nie kwestionują. Cenią formalne procesy i dokumentację. Feedback wolą dawać w rozmowie, niekoniecznie regularnie — roczna ocena to dla nich norma.</p>
+        </div>
+      </div>
+      <div class="tension-box">
+        <h4>Potencjalne napięcia w zespołach</h4>
+        <ul>
+          <li>Konflikty z młodszymi pokoleniami wokół elastyczności — BB widzą home office jako brak zaangażowania</li>
+          <li>Trudność w przyjęciu feedbacku od młodszych przełożonych — może być odbierane jako zagrożenie autorytetu</li>
+          <li>Opór wobec szybkich zmian technologicznych i nowych narzędzi</li>
+          <li>Oczekiwanie, że "czas spędzony przy biurku" jest równoznaczny z produktywnością — tarcia z wynikocentrycznymi modelami pracy</li>
+          <li>Może nieświadomie stosować "wiekizm" — niedocenianie młodszych bez tytułów i stażu</li>
+          <li>Styl zarządzania mikromanagement może frustrować autonomię Gen Z i Millenialsów</li>
+        </ul>
+      </div>
+      <div class="plus-box">
+        <h4>Co wnosi do zespołu i organizacji</h4>
+        <ul>
+          <li>Bezcenne doświadczenie i pamięć instytucjonalna — wiedzą, co już próbowano i dlaczego nie działało</li>
+          <li>Sieć kontaktów budowana przez dekady — ogromny zasób dla firm</li>
+          <li>Stabilność emocjonalna i odporność — przeżyli kryzysy, wiedzą jak działać pod presją</li>
+          <li>Wysoka etyka pracy i niezawodność — dotrzymują zobowiązań</li>
+          <li>Naturalni mentorzy — chętnie dzielą się wiedzą, jeśli poczują się docenieni</li>
+          <li>Długoterminowe myślenie i cierpliwość w budowaniu wartości</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- GEN X -->
+  <div class="gen-card gen-x">
+    <div class="gen-header" onclick="toggleGen('x')">
+      <div class="gen-badge">X</div>
+      <div class="gen-header-text">
+        <h3>Generacja X</h3>
+        <span>Urodzeni 1965–1980 · Wiek: ok. 44–60 lat · Dzisiaj: menedżerowie średniego i wyższego szczebla, właściciele firm</span>
+      </div>
+      <div class="gen-toggle" id="toggle-x">▼</div>
+    </div>
+    <div class="gen-body" id="body-x">
+      <div class="info-grid">
+        <div class="info-box">
+          <h4>Kontekst historyczny — co ich ukształtowało?</h4>
+          <p>Dorastali jako "klucze na szyi" — pokolenie zostawiane samo sobie, gdy rodzice pracowali. Widzieli upadek komunizmu, transformację systemu, masowe zwolnienia lat 90-tych. Nauczyli się nie ufać instytucjom. AIDS, recesje, MTV i pierwsze komputery osobiste. Samowystarczalność stała się koniecznością.</p>
+        </div>
+        <div class="info-box">
+          <h4>Stosunek do pracy</h4>
+          <ul>
+            <li>Praca jest ważna, ale nie jest wszystkim — szukają równowagi</li>
+            <li>Lojalni wobec <em>siebie</em>, nie pracodawcy — gotowi zmienić firmę dla lepszych warunków</li>
+            <li>Pragmatyczni: liczą się wyniki, nie godziny spędzone w biurze</li>
+            <li>Cenią autonomię — nie lubią mikrozarządzania</li>
+            <li>Adaptowalni — przeżyli kilka restrukturyzacji, potrafią się przystosować</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h4>Stosunek do życia prywatnego</h4>
+          <ul>
+            <li>Pionierzy work-life balance — jako pierwsi zaczęli o to walczyć</li>
+            <li>Bardzo zależy im na rodzinie i czasie wolnym</li>
+            <li>Cenią niezależność finansową — oszczędność i rozsądek</li>
+            <li>Skeptyczni wobec autorytetów i wielkich narracji</li>
+            <li>Poczucie humoru i ironia jako mechanizm obronny</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h4>Cechy charakterystyczne</h4>
+          <div class="tag-list">
+            <span class="tag tag-x">Niezależność</span>
+            <span class="tag tag-x">Pragmatyzm</span>
+            <span class="tag tag-x">Adaptacyjność</span>
+            <span class="tag tag-x">Sceptycyzm</span>
+            <span class="tag tag-x">Zaradność</span>
+            <span class="tag tag-x">Wynikowość</span>
+            <span class="tag tag-x">Bezpośredniość</span>
+          </div>
+        </div>
+        <div class="info-box full">
+          <h4>Styl komunikacji i zarządzania</h4>
+          <p>Komunikacja bezpośrednia, bez owijania w bawełnę. E-mail to ich naturalne środowisko, ale są elastyczni. Jako menedżerowie cenią delegowanie i zaufanie — sami nie lubili mikrozarządzania, więc rzadko je stosują. Dają dużo autonomii, ale oczekują wyników. Feedback udzielają regularnie i konkretnie. Mogą być trudno czytelni emocjonalnie — minimalizują emocje w profesjonalnym kontekście. W konfliktach: rozwiązują bezpośrednio, nie lubią polityki biurowej.</p>
+        </div>
+      </div>
+      <div class="tension-box">
+        <h4>Potencjalne napięcia w zespołach</h4>
+        <ul>
+          <li>Frustracja z Millenialsami, których postrzegają jako zbyt roszczeniowych i wrażliwych na feedback</li>
+          <li>Konflikty z BB wokół zmian — Xki chcą działać szybciej, BB wolą sprawdzone ścieżki</li>
+          <li>Ironia i dystans może być odbierany przez Gen Z jako brak zaangażowania lub cynizm</li>
+          <li>Mogą niedoceniać potrzeby uznania i feedbacku Millenialsów — "ja nie potrzebowałem poklepywania po plecach"</li>
+          <li>Sceptycyzm wobec nowych inicjatyw HR (wellness, DEI) — mogą sabotować nieświadomie</li>
+        </ul>
+      </div>
+      <div class="plus-box">
+        <h4>Co wnosi do zespołu i organizacji</h4>
+        <ul>
+          <li>Elastyczność i odporność — najbardziej adaptowalne pokolenie na rynku pracy</li>
+          <li>Balans między hierarchią BB a swobodą Millenialsów — naturalni mediatorzy</li>
+          <li>Wyniki bez dramatów — robią, co trzeba, bez potrzeby oklasków</li>
+          <li>Doskonałe umiejętności rozwiązywania problemów — wychowani na kreatywnym radzeniu sobie</li>
+          <li>Realistyczne spojrzenie na organizację — widzą szanse i zagrożenia trzeźwo</li>
+          <li>Pełnią funkcję "kleju" między starszymi a młodszymi pokoleniami w zespole</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- MILLENIALS -->
+  <div class="gen-card gen-mil">
+    <div class="gen-header" onclick="toggleGen('mil')">
+      <div class="gen-badge">Y</div>
+      <div class="gen-header-text">
+        <h3>Millenialsi (Generacja Y)</h3>
+        <span>Urodzeni 1981–1996 · Wiek: ok. 28–44 lat · Dzisiaj: core workforce, menedżerowie, startupy, liderzy zmian</span>
+      </div>
+      <div class="gen-toggle" id="toggle-mil">▼</div>
+    </div>
+    <div class="gen-body" id="body-mil">
+      <div class="info-grid">
+        <div class="info-box">
+          <h4>Kontekst historyczny — co ich ukształtowało?</h4>
+          <p>Dorastali z optymizmem lat 90-tych i bańką internetową. Przeżyli 11 września, kryzys finansowy 2008 roku (wchodząc właśnie na rynek pracy), zmiany klimatu jako realne zagrożenie. Pierwsze pokolenie cyfrowe — internet, e-mail, smartfony w młodości. Wychowani przez "helikopterowych rodziców" z przekonaniem, że są wyjątkowi i mogą wszystko.</p>
+        </div>
+        <div class="info-box">
+          <h4>Stosunek do pracy</h4>
+          <ul>
+            <li>Praca ma mieć sens — misja i wartości firmy są kluczowe</li>
+            <li>Praca-życie: nie "balans" lecz "integracja" — zacieranie granic</li>
+            <li>Feedback często i regularnie — potrzebują wiedzieć, jak im idzie</li>
+            <li>Rozwój zawodowy jako priorytet — jeśli nie rośnie, odchodzi</li>
+            <li>Kwestionują status quo — "dlaczego tak?" to ich naturalne pytanie</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h4>Stosunek do życia prywatnego</h4>
+          <ul>
+            <li>Dobrostan (wellbeing) jako świadoma wartość</li>
+            <li>Opóźnione dorosłe decyzje — później zakupy, ślub, dzieci</li>
+            <li>Ekonomia doświadczeń — wydają na przeżycia, nie rzeczy</li>
+            <li>Zaangażowanie społeczne i environmentalizm</li>
+            <li>Social media jako naturalne środowisko tożsamości</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h4>Cechy charakterystyczne</h4>
+          <div class="tag-list">
+            <span class="tag tag-mil">Cel i sens</span>
+            <span class="tag tag-mil">Kolaboracja</span>
+            <span class="tag tag-mil">Optymizm</span>
+            <span class="tag tag-mil">Narcyzm</span>
+            <span class="tag tag-mil">Technologiczność</span>
+            <span class="tag tag-mil">Różnorodność</span>
+            <span class="tag tag-mil">Wielozadaniowość</span>
+          </div>
+        </div>
+        <div class="info-box full">
+          <h4>Styl komunikacji i zarządzania</h4>
+          <p>Komunikacja wielokanałowa — Slack, Teams, WhatsApp, e-mail. Preferują płaskie struktury, mówią do menedżerów po imieniu, oczekują że zostaną wysłuchani bez względu na stanowisko. Jako liderzy stawiają na team building, integrację, feedback 360°. Mogą mieć trudność z trudnymi decyzjami personalnymi (np. zwolnienia) — wysoka empatia bywa przeszkodą. Cenią transparentność — chcą wiedzieć "dlaczego", nie tylko "co". Dobrze reagują na mentoring i coaching.</p>
+        </div>
+      </div>
+      <div class="tension-box">
+        <h4>Potencjalne napięcia w zespołach</h4>
+        <ul>
+          <li>Perceived sense of entitlement — starsze pokolenia mogą odczuwać ich oczekiwania jako nierealistyczne</li>
+          <li>Potrzeba stałego feedbacku może być wyczerpująca dla przełożonych z BB lub Generacji X</li>
+          <li>Job hopping — niższa lojalność budzi frustrację firm inwestujących w ich rozwój</li>
+          <li>Kwestionowanie każdej decyzji może być odebrane jako brak szacunku dla doświadczenia</li>
+          <li>Granica praca-życie (lub jej brak) — mogą oczekiwać dostępności 24/7, co frustruje innych</li>
+          <li>Przesadna wrażliwość na feedback krytyczny — trudno z nimi rozmawiać o błędach</li>
+        </ul>
+      </div>
+      <div class="plus-box">
+        <h4>Co wnosi do zespołu i organizacji</h4>
+        <ul>
+          <li>Motor innowacji — naturalnie kwestionują "jak zawsze było" i szukają lepszych dróg</li>
+          <li>Pierwsze pokolenie prawdziwych cyfrowych liderów — budowniczowie kultury online</li>
+          <li>Wysoka empatia i inteligencja emocjonalna — liderzy relacji i kultury zespołowej</li>
+          <li>Misja i wartości wbudowane w decyzje — pchają firmy ku odpowiedzialności społecznej</li>
+          <li>Najlepsi networkerzy — kolaborują naturalnie, budują ekosystemy wewnątrz i na zewnątrz</li>
+          <li>Adaptacyjność — przeżyli kilka kryzysów, nauczyli się zmieniać plany szybko</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- GEN Z -->
+  <div class="gen-card gen-z">
+    <div class="gen-header" onclick="toggleGen('z')">
+      <div class="gen-badge">Z</div>
+      <div class="gen-header-text">
+        <h3>Generacja Z (Zoomers)</h3>
+        <span>Urodzeni 1997–2012 · Wiek: ok. 12–28 lat · Dzisiaj: wchodzą na rynek pracy, najmłodsi pracownicy</span>
+      </div>
+      <div class="gen-toggle" id="toggle-z">▼</div>
+    </div>
+    <div class="gen-body" id="body-z">
+      <div class="info-grid">
+        <div class="info-box">
+          <h4>Kontekst historyczny — co ich ukształtowało?</h4>
+          <p>Pierwsze pokolenie prawdziwie "cyfrowo urodzone" — nie pamiętają świata bez smartfonów. Dorastali podczas kryzysu finansowego 2008 (jako dzieci), pandemii COVID (jako nastolatkowie), masowych ruchów społecznych (Black Lives Matter, MeToo, Fridays for Future). Przyspieszony świat, krótkie formaty (TikTok), informacje w nadmiarze. Najzdrowsza psychicznie w teorii — ale raport APA (2023) wskazuje ich jako pokolenie z największym poziomem stresu.</p>
+        </div>
+        <div class="info-box">
+          <h4>Stosunek do pracy</h4>
+          <ul>
+            <li>Praca to tylko część życia — nie definiuje ich tożsamości</li>
+            <li>"Quiet quitting" i wyraźne granice — praca od-do, nic więcej</li>
+            <li>Wartości etyczne firmy weryfikują przed aplikacją</li>
+            <li>Oczekują inkluzywności i różnorodności jako standardu</li>
+            <li>Transparent pay, jasne zasady awansu — zero tolerancji na niejasności</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h4>Stosunek do życia prywatnego</h4>
+          <ul>
+            <li>Zdrowie psychiczne jako priorytet — nie wstydzą się mówić o terapii</li>
+            <li>Tożsamość: płynna, różnorodna, anti-label</li>
+            <li>Entrepreneurship jako alternatywa dla etatu — TikTok, dropshipping, kreatorzy</li>
+            <li>FOMO i JOMO jednocześnie — cyfrowe wycofanie jako reakcja na przebodźcowanie</li>
+            <li>Bardzo pragmatyczni finansowo — uczą się od błędów Millenialsów</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h4>Cechy charakterystyczne</h4>
+          <div class="tag-list">
+            <span class="tag tag-z">Autentyczność</span>
+            <span class="tag tag-z">Pragmatyzm</span>
+            <span class="tag tag-z">Zdrowie psychiczne</span>
+            <span class="tag tag-z">Różnorodność</span>
+            <span class="tag tag-z">Krótki focus</span>
+            <span class="tag tag-z">Entrepreneurship</span>
+            <span class="tag tag-z">Szybkość</span>
+          </div>
+        </div>
+        <div class="info-box full">
+          <h4>Styl komunikacji i zarządzania</h4>
+          <p>Natywna komunikacja wideo, GIF-ów i audio. E-mail to dla nich "praca dla starszych". Oczekują bardzo jasnych, zwięzłych instrukcji — długie maile gubią. W miejscu pracy chcą regularnych check-inów (ale krótkich), możliwości pracy hybrydowej lub zdalnej jako standard, nie przywilej. Jako podwładni: stawiają granice, potrafią powiedzieć "nie" — co starszym menedżerom bywa trudne do zaakceptowania. Oczekują, że ich zdanie zostanie wysłuchane od pierwszego dnia — niezależnie od stażu.</p>
+        </div>
+      </div>
+      <div class="tension-box">
+        <h4>Potencjalne napięcia w zespołach</h4>
+        <ul>
+          <li>Postrzegani przez starsze pokolenia jako leniwi lub roszczeniowi — niepotrzebne napięcia</li>
+          <li>Trudność z długotrwałym skupieniem na jednym projekcie bez szybkiej gratyfikacji</li>
+          <li>Granice mogą być odczytane jako brak zaangażowania — "quiet quitting" jako zarzut</li>
+          <li>Odrzucanie autorytetu opartego na stażu — "masz rację, bo długo tu jesteś" nie działa</li>
+          <li>Oczekiwanie natychmiastowej odpowiedzi — frustracja przy dłuższych procesach decyzyjnych</li>
+          <li>Może być trudno ich zatrzymać — duża mobilność i niska tolerancja na złą kulturę</li>
+        </ul>
+      </div>
+      <div class="plus-box">
+        <h4>Co wnosi do zespołu i organizacji</h4>
+        <ul>
+          <li>Prawdziwi digital natives — znają algorytmy, trendy, nowe narzędzia zanim te trafią do firm</li>
+          <li>Łamią tabu zdrowia psychicznego — pchają organizacje ku prawdziwemu wellbeing</li>
+          <li>Autentyczność i antykorpo-kultura — zmuszają firmy do bycia prawdziwymi w wartościach</li>
+          <li>Innowatorzy formatów komunikacji — mogą rewolucjonizować marketing i employer branding</li>
+          <li>Wyraźne granice = brak wypalenia — modelują zdrowe podejście do pracy</li>
+          <li>Różnorodność perspektyw — najbart różnorodne pokolenie w historii, wzbogaca decyzje</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- GEN ALPHA -->
+  <div class="gen-card gen-alpha">
+    <div class="gen-header" onclick="toggleGen('alpha')">
+      <div class="gen-badge">α</div>
+      <div class="gen-header-text">
+        <h3>Generacja Alpha</h3>
+        <span>Urodzeni od 2013 · Wiek: do ok. 12 lat · Dzisiaj: jutro na rynku pracy — ale trendy już widoczne</span>
+      </div>
+      <div class="gen-toggle" id="toggle-alpha">▼</div>
+    </div>
+    <div class="gen-body" id="body-alpha">
+      <div class="info-grid">
+        <div class="info-box">
+          <h4>Kim są i co ich kształtuje?</h4>
+          <p>Pierwsze pokolenie, które nie pamięta świata przed AI. Dorastają z Alexa, ChatGPT, tabletami od niemowlęctwa. Pandemia COVID była ich pierwszym wielkim przeżyciem społecznym. Rodzice (późni Millenialsi i Generacja X) bardzo świadomie podchodzą do ich wychowania. Hiperindywidualizacja tożsamości, jeszcze bardziej płynna niż u Gen Z.</p>
+        </div>
+        <div class="info-box">
+          <h4>Co możemy przewidywać?</h4>
+          <ul>
+            <li>AI jako naturalne narzędzie pracy — nie innowacja, lecz standard</li>
+            <li>Jeszcze bardziej rozmyta granica online-offline</li>
+            <li>Będą oczekiwać hiperpersonalizacji w każdym aspekcie pracy</li>
+            <li>Lojalność wobec misji i wartości, nie firmy ani nawet branży</li>
+            <li>Przywódcy, których znają z wczesnej edukacji to twórcy YouTube, nie politycy</li>
+          </ul>
+        </div>
+        <div class="info-box full">
+          <h4>Dlaczego warto o nich myśleć już teraz?</h4>
+          <p>Organizacje, które budują kulturę, struktury i procesy dzisiaj, będą musiały je adaptować dla Generacji Alpha wchodzącej na rynek pracy za 5–10 lat. Już teraz wartości i oczekiwania rodziców-Millenialsów wpływają na to, jak Alpha rozumie pracę. Firmy, które chcą być pracodawcami przyszłości, muszą zacząć myśleć w kategoriach Alpha już przy budowaniu employer brandingu.</p>
+        </div>
+      </div>
+      <div class="plus-box">
+        <h4>Potencjał pokolenia Alpha</h4>
+        <ul>
+          <li>Będą pierwszymi prawdziwymi "human-AI hybrid workers" — będą pracować z AI jak my z Excelem</li>
+          <li>Najwyższy poziom kreatywności wizualnej i multimodalnej komunikacji</li>
+          <li>Silna świadomość globalnych problemów — klimat, nierówności — jako motor działania</li>
+          <li>Najbardziej różnorodne i inkluzywne pokolenie w historii ludzkości</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    Materiał przygotowany na potrzeby szkolenia z zarządzania pokoleniowego. Wszystkie charakterystyki opierają się na badaniach socjologicznych i demograficznych — pamiętaj, że opisują tendencje grupowe, nie indywidua.
+  </div>
+</div>
+
+<!-- ======================== PART 2: QUIZ ======================== -->
+<div id="tab-quiz" class="section">
+  <p class="section-title">Ćwiczenie 1 — Kim jestem pokoleniowo?</p>
+  <p class="section-subtitle">Odkryj swój profil pokoleniowy i dowiedz się, co to znaczy dla Twojej komunikacji</p>
+
+  <div class="quiz-intro">
+    <h3>Instrukcja do ćwiczenia</h3>
+    <p>Poniższe pytania dotyczą Twoich postaw, wartości i zachowań w pracy — nie daty urodzenia. Generacja to nie tylko rok, ale system wartości. Odpowiedz szczerze, zaznaczając odpowiedź, która <em>najbardziej Cię opisuje</em>. Na końcu otrzymasz profil z konkretnymi wskazówkami komunikacyjnymi i zarządczymi.</p>
+  </div>
+
+  <div id="quiz-form">
+    <!-- Q1 -->
+    <div class="quiz-question">
+      <p>1. Jak podchodzisz do relacji pracodawca-pracownik?</p>
+      <label class="quiz-option" onclick="selectOpt(this, 'q1')"><input type="radio" name="q1" value="bb"> Lojalność to fundament — zmienianie pracy co kilka lat to brak charakteru</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q1')"><input type="radio" name="q1" value="x"> Lojalny jestem wobec siebie. Firma mi płaci, ja daję wyniki — to transakcja</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q1')"><input type="radio" name="q1" value="mil"> Chcę być lojalny, ale firma musi mi dać powód — misję, rozwój, kulturę</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q1')"><input type="radio" name="q1" value="z"> Lojalność? Zostanę tak długo, jak praca mi odpowiada. Inaczej — szukam czegoś lepszego</label>
+    </div>
+    <!-- Q2 -->
+    <div class="quiz-question">
+      <p>2. Jak reagujesz na feedback od przełożonego?</p>
+      <label class="quiz-option" onclick="selectOpt(this, 'q1')"><input type="radio" name="q2" value="bb"> Przyjmuję i stosuję — przełożony wie lepiej, ma doświadczenie</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q1')"><input type="radio" name="q2" value="x"> Ok, jeśli jest konkretny i merytoryczny. Ogólniki mnie irytują</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q1')"><input type="radio" name="q2" value="mil"> Potrzebuję go regularnie! Brak feedbacku = niepewność i demotywacja</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q1')"><input type="radio" name="q2" value="z"> Chcę go, ale musi być dwukierunkowy — ja też mam prawo oceniać przełożonego</label>
+    </div>
+    <!-- Q3 -->
+    <div class="quiz-question">
+      <p>3. Co myślisz o pracy zdalnej lub hybrydowej?</p>
+      <label class="quiz-option" onclick="selectOpt(this, 'q1')"><input type="radio" name="q3" value="bb"> Wolę biuro — tam jest "prawdziwa praca", kontakt, widać zaangażowanie</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q1')"><input type="radio" name="q3" value="x"> Daj mi elastyczność — oceniaj po wynikach, nie po obecności na miejscu</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q1')"><input type="radio" name="q3" value="mil"> Hybryd idealnie — część w biurze dla relacji, część zdalnie dla skupienia</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q1')"><input type="radio" name="q3" value="z"> Zdalnie jako standard — biuro to opcja, nie obowiązek</label>
+    </div>
+    <!-- Q4 -->
+    <div class="quiz-question">
+      <p>4. Twój szef daje Ci zadanie bez wyjaśnienia "dlaczego". Co robisz?</p>
+      <label class="quiz-option" onclick="selectOpt(this, 'q1')"><input type="radio" name="q4" value="bb"> Robię zadanie — szef ma swoje powody, nie muszę wiedzieć wszystkiego</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q1')"><input type="radio" name="q4" value="x"> Zapytam po co, ale nie dramatyzuję — to ułatwia mi pracę, nie kwestionuje autorytet</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q1')"><input type="radio" name="q4" value="mil"> Muszę wiedzieć "dlaczego" — bez sensu i kontekstu nie jestem w stanie się zaangażować</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q1')"><input type="radio" name="q4" value="z"> Zapytam. A jeśli nie ma dobrego powodu, powiem wprost, że mam wątpliwości</label>
+    </div>
+    <!-- Q5 -->
+    <div class="quiz-question">
+      <p>5. Jak definiujesz sukces zawodowy?</p>
+      <label class="quiz-option" onclick="selectOpt(this, 'q1')"><input type="radio" name="q5" value="bb"> Stabilna pozycja, szacunek w branży, długi staż na wysokim stanowisku</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q1')"><input type="radio" name="q5" value="x"> Finansowa niezależność + czas dla siebie i rodziny. Wyniki bez nadgodzin</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q5' )"><input type="radio" name="q5" value="mil"> Robię coś ważnego, rozwijam się, mam dobry zespół i widzę swój wkład</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q5')"><input type="radio" name="q5" value="z"> Robię co lubię, zarabiam dobrze i mam czas na życie poza pracą. I nie wypalę się</label>
+    </div>
+    <!-- Q6 -->
+    <div class="quiz-question">
+      <p>6. W zespole pojawia się konflikt. Twoja reakcja?</p>
+      <label class="quiz-option" onclick="selectOpt(this, 'q6')"><input type="radio" name="q6" value="bb"> Hierarchia decyduje — lider powinien to rozwiązać odgórnie</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q6')"><input type="radio" name="q6" value="x"> Mówimy wprost, rozwiązujemy bez dramatów i wracamy do pracy</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q6')"><input type="radio" name="q6" value="mil"> Siadamy razem, rozmawiamy o emocjach i szukamy rozwiązania, które każdy zaakceptuje</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q6')"><input type="radio" name="q6" value="z"> Nazwę problem wprost, nawet jeśli będzie niekomfortowo — wolę autentyczność niż pozory</label>
+    </div>
+    <!-- Q7 -->
+    <div class="quiz-question">
+      <p>7. Co najbardziej cenisz w miejscu pracy?</p>
+      <label class="quiz-option" onclick="selectOpt(this, 'q7')"><input type="radio" name="q7" value="bb"> Stabilność, szacunek i docenienie doświadczenia</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q7')"><input type="radio" name="q7" value="x"> Autonomia, zaufanie i brak mikrozarządzania</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q7')"><input type="radio" name="q7" value="mil"> Sens misji, dobra kultura i możliwości rozwoju</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q7')"><input type="radio" name="q7" value="z"> Granice, przejrzystość, inkluzywność i elastyczność</label>
+    </div>
+    <!-- Q8 -->
+    <div class="quiz-question">
+      <p>8. Jak podchodzisz do nowych technologii w pracy?</p>
+      <label class="quiz-option" onclick="selectOpt(this, 'q8')"><input type="radio" name="q8" value="bb"> Uczę się jeśli muszę, ale sprawdzone metody są zazwyczaj lepsze</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q8')"><input type="radio" name="q8" value="x"> Adaptuję się sprawnie — przeżyłem wiele zmian technologicznych, to kolejna</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q8')"><input type="radio" name="q8" value="mil"> Chętnie próbuję — nowe narzędzia mogą ułatwić pracę i zwiększyć efektywność</label>
+      <label class="quiz-option" onclick="selectOpt(this, 'q8')"><input type="radio" name="q8" value="z"> Naturalnie — to moje środowisko. Wolę gdy firma jest tech-forward niż tech-resistant</label>
+    </div>
+
+    <button class="quiz-btn" onclick="calculateQuiz()">Sprawdź swój profil pokoleniowy →</button>
+  </div>
+
+  <div class="result-box" id="quiz-result">
+    <div id="result-content"></div>
+  </div>
+</div>
+
+<!-- ======================== PART 3: COMMUNICATION ======================== -->
+<div id="tab-comm" class="section">
+  <p class="section-title">Ćwiczenie 2 — Jak rozmawiać z każdym pokoleniem?</p>
+  <p class="section-subtitle">Wybierz dwa pokolenia, aby zobaczyć konkretne wskazówki komunikacyjne</p>
+
+  <div class="quiz-intro" style="background: rgba(78,205,196,0.06); border-color: rgba(78,205,196,0.3);">
+    <h3 style="color: #4ecdc4;">Jak używać tego ćwiczenia</h3>
+    <p>Wybierz "Twoje pokolenie" i pokolenie osoby, z którą chcesz poprawić komunikację. Otrzymasz spersonalizowane wskazówki: jak mówić, co unikać i jak budować most porozumienia.</p>
+  </div>
+
+  <div style="margin-bottom: 1rem;">
+    <p style="font-size:0.85rem; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:0.8rem; font-weight:600;">Twoje pokolenie:</p>
+    <div class="comm-grid">
+      <button class="comm-select-btn" onclick="selectGen('me', 'bb', this)"><div class="gen-icon" style="color:#b39ddb">BB</div><strong>Baby Boomer</strong><small>1946–1964</small></button>
+      <button class="comm-select-btn" onclick="selectGen('me', 'x', this)"><div class="gen-icon" style="color:#80cbc4">X</div><strong>Generacja X</strong><small>1965–1980</small></button>
+      <button class="comm-select-btn" onclick="selectGen('me', 'mil', this)"><div class="gen-icon" style="color:#f48fb1">Y</div><strong>Millenialsi</strong><small>1981–1996</small></button>
+      <button class="comm-select-btn" onclick="selectGen('me', 'z', this)"><div class="gen-icon" style="color:#4ecdc4">Z</div><strong>Generacja Z</strong><small>1997–2012</small></button>
+    </div>
+  </div>
+
+  <div style="margin-bottom: 1.5rem;">
+    <p style="font-size:0.85rem; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:0.8rem; font-weight:600;">Pokolenie rozmówcy:</p>
+    <div class="comm-grid">
+      <button class="comm-select-btn" onclick="selectGen('them', 'bb', this)"><div class="gen-icon" style="color:#b39ddb">BB</div><strong>Baby Boomer</strong><small>1946–1964</small></button>
+      <button class="comm-select-btn" onclick="selectGen('them', 'x', this)"><div class="gen-icon" style="color:#80cbc4">X</div><strong>Generacja X</strong><small>1965–1980</small></button>
+      <button class="comm-select-btn" onclick="selectGen('them', 'mil', this)"><div class="gen-icon" style="color:#f48fb1">Y</div><strong>Millenialsi</strong><small>1981–1996</small></button>
+      <button class="comm-select-btn" onclick="selectGen('them', 'z', this)"><div class="gen-icon" style="color:#4ecdc4">Z</div><strong>Generacja Z</strong><small>1997–2012</small></button>
+    </div>
+  </div>
+
+  <div class="comm-result" id="comm-result">
+    <h3 id="comm-result-title">Twoje wskazówki komunikacyjne</h3>
+    <div id="comm-result-body"></div>
+  </div>
+
+  <hr class="divider">
+
+  <p class="section-title" style="margin-top:0;">Sceny sytuacyjne — ćwiczenie grupowe</p>
+  <p style="font-size:0.9rem; color:#ddd; margin-bottom:1rem;">Przeczytaj poniższe scenariusze. W grupach: omówcie, jak każde pokolenie zareagowałoby na daną sytuację i jak rozwiązać potencjalny konflikt.</p>
+
+  <div class="scenario-box"><strong>Scenariusz 1 — Feedback bez feedbacku:</strong> Marta (Baby Boomer, dyrektor) nigdy nie chwali swojego zespołu. Uważa, że "brak krytyki to pochwała". Karol (Millennial, team leader) i Zosia (Gen Z, junior) czują się niedoceniani i zaczynają szukać nowej pracy. Co zrobić?</div>
+  <div class="scenario-box"><strong>Scenariusz 2 — Praca zdalna kontra biuro:</strong> Tomasz (Gen X, manager) nakazał powrót do biura 5 dni w tygodniu, twierdząc że "tak lepiej się pracuje". Połowa zespołu to Millenialsi i Gen Z, którzy zagrażają masową rezygnacją. Jak znaleźć kompromis?</div>
+  <div class="scenario-box"><strong>Scenariusz 3 — Granice w pracy:</strong> Adam (Millennial, lider) pisze do Kasi (Gen Z) w sobotni wieczór z "pilną sprawą". Kasia nie odpowiada. W poniedziałek Adam pyta dlaczego. Co myśli każda strona? Kto ma rację?</div>
+  <div class="scenario-box"><strong>Scenariusz 4 — Awans bez stażu:</strong> Piotr (Baby Boomer, 30 lat w firmie) jest pominięty przy awansie na rzecz Julii (Millennial, 5 lat w firmie). Julia ma lepsze wyniki i świetne kompetencje cyfrowe. Jak zarządzić tą sytuacją?</div>
+</div>
+
+<!-- ======================== PART 4: MANAGEMENT ======================== -->
+<div id="tab-mgmt" class="section">
+  <p class="section-title">Ćwiczenie 3 — Jak zarządzać każdym pokoleniem?</p>
+  <p class="section-subtitle">Praktyczne narzędzia liderskie dla menedżerów pokoleń</p>
+
+  <div class="mgmt-grid">
+    <div class="mgmt-card" style="border-color: rgba(90,50,200,0.3);">
+      <h4><span style="color:#b39ddb">●</span> Zarządzanie Baby Boomerami</h4>
+      <ul>
+        <li><strong>Doceniaj doświadczenie publicznie</strong> — pochwal przy zespole, przyznaj ekspertyzę w danej dziedzinie. BB reagują na szacunek okazany przez innych.</li>
+        <li><strong>Dawaj role mentorskie</strong> — nie "schodź z drogi", ale "naucz innych". Przekształć ich wiedzę w zasób organizacji.</li>
+        <li><strong>Komunikuj face-to-face lub telefonicznie</strong> — jeśli masz ważną sprawę, nie pisz maila. Zadzwoń lub umów spotkanie.</li>
+        <li><strong>Wprowadzaj tech stopniowo</strong> — pokaż konkretną korzyść (oszczędność czasu, wygoda), zanim zaczniesz wymagać.</li>
+        <li><strong>Szanuj hierarchię</strong> — informuj wcześniej, konsultuj się formalnie. Zaskakiwanie ich publicznie jest odebrane jako brak szacunku.</li>
+        <li><strong>Roczne oceny + regularne rozmowy</strong> — formalna struktura oceny ich uspokaja. Uzupełnij częstszymi, krótkimi check-inami.</li>
+      </ul>
+    </div>
+
+    <div class="mgmt-card" style="border-color: rgba(20,120,180,0.3);">
+      <h4><span style="color:#80cbc4">●</span> Zarządzanie Generacją X</h4>
+      <ul>
+        <li><strong>Deleguj z zaufaniem</strong> — daj cel, deadline i zasoby. Nie kontroluj procesu. Gen X nienawidzi mikrozarządzania.</li>
+        <li><strong>Rozmawiaj bezpośrednio</strong> — żadnego owijania w bawełnę. Mów co widzisz, czego oczekujesz, co ma być zrobione.</li>
+        <li><strong>Daj elastyczność bez przepraszania</strong> — home office, elastyczne godziny. Nie rób z tego przywileju, traktuj jak standard.</li>
+        <li><strong>Doceniaj wyniki, nie czas</strong> — "ile godzin byłeś" to dla nich bez sensu. "Co osiągnąłeś" — to właściwe pytanie.</li>
+        <li><strong>Angażuj w decyzje strategiczne</strong> — mają doświadczenie i pragmatyzm. Warto ich pytać o zdanie, zanim zdecydujesz.</li>
+        <li><strong>Nie wymagaj emocjonalnej otwartości</strong> — mogą być zamknięci w pracy. To nie brak zaangażowania — to styl pokolenia.</li>
+      </ul>
+    </div>
+
+    <div class="mgmt-card" style="border-color: rgba(233,69,96,0.3);">
+      <h4><span style="color:#f48fb1">●</span> Zarządzanie Millenialsami</h4>
+      <ul>
+        <li><strong>Tłumacz "dlaczego"</strong> — każdą decyzję, każde zadanie. "Bo tak jest" to koniec ich zaangażowania. "Robimy to, bo..." — to wstęp do motywacji.</li>
+        <li><strong>Regularny feedback — co tydzień</strong> — krótkie 1:1, konkretna informacja zwrotna. Brak feedbacku = brak zaangażowania.</li>
+        <li><strong>Ścieżka rozwoju — jasna i widoczna</strong> — pokaż im gdzie mogą być za rok, dwa, pięć. Bez tego zaczną szukać gdzie indziej.</li>
+        <li><strong>Misja ponad procesy</strong> — angażuj ich w projekty z realnym impactem. Nudna, bezsensowna praca to ich kryptonit.</li>
+        <li><strong>Kultura i relacje</strong> — team building, wartości, inkluzywność. Millenialsi wybierają kulturę nad pensję (w granicach rozsądku).</li>
+        <li><strong>Coaching, nie dyktowanie</strong> — pytaj "co o tym myślisz?", "jak byś to zrobił?". Autorytet przez coaching, nie stanowisko.</li>
+      </ul>
+    </div>
+
+    <div class="mgmt-card" style="border-color: rgba(78,205,196,0.3);">
+      <h4><span style="color:#4ecdc4">●</span> Zarządzanie Generacją Z</h4>
+      <ul>
+        <li><strong>Szanuj granice — bez wyjątków</strong> — nie pisz po godzinach. Jeśli kultura firmy tego wymaga, zmień kulturę firmy lub trać ludzi z Gen Z.</li>
+        <li><strong>Transparentność totalna</strong> — widełki płacowe, kryteria awansu, decyzje zarządu. Tajemnice budują nieufność.</li>
+        <li><strong>Krótkie i konkretne komunikaty</strong> — długi mail z 12 punktami? Dostaniesz odpowiedź na punkt 1 i 7. Pisz zwięźle, używaj wypunktowania.</li>
+        <li><strong>Zdrowie psychiczne jako priorytet</strong> — nie lekceważ, gdy mówią o wypaleniu lub stresie. Zaproponuj konkretne wsparcie.</li>
+        <li><strong>Autorytet przez kompetencje</strong> — "jestem szefem, więc mam rację" nie działa. Musisz udowodnić swoją wartość wiedzą i postawą.</li>
+        <li><strong>Angażuj w tworzenie rozwiązań</strong> — pytaj o input od pierwszego dnia. Gen Z chce mieć głos — daj im go, zanim pójdą gdzie indziej.</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <p class="section-title" style="margin-top:0;">Mapa wartości międzypokoleniowych</p>
+  <p style="font-size:0.9rem; color:#ddd; margin-bottom:1.5rem;">Jak każde pokolenie punktuje kluczowe wartości w miejscu pracy (1–10, gdzie 10 = najwyższy priorytet)</p>
+
+  <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; margin-bottom: 1.5rem;">
+    <div style="display: grid; grid-template-columns: 130px 1fr 1fr 1fr 1fr; gap: 4px; margin-bottom: 0.8rem; font-size:0.75rem; color: var(--muted); text-align:center;">
+      <div></div>
+      <div style="color:#b39ddb; font-weight:600;">Baby Boomer</div>
+      <div style="color:#80cbc4; font-weight:600;">Gen X</div>
+      <div style="color:#f48fb1; font-weight:600;">Millennial</div>
+      <div style="color:#4ecdc4; font-weight:600;">Gen Z</div>
+    </div>
+    <div id="value-bars"></div>
+  </div>
+
+  <hr class="divider">
+
+  <p class="section-title" style="margin-top:0;">Refleksja końcowa — pytania do dyskusji</p>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.5rem;">
+    <div class="scenario-box" style="border-color: var(--acc); font-size:0.85rem;">
+      <strong style="color: var(--acc);">Dla menedżerów:</strong><br>
+      Które pokolenie sprawia Ci największą trudność w zarządzaniu? Co możesz zrobić inaczej od jutra?
+    </div>
+    <div class="scenario-box" style="border-color: var(--acc3); font-size:0.85rem;">
+      <strong style="color: var(--acc3);">Dla pracowników:</strong><br>
+      Które cechy Twojego pokolenia mogą być trudne dla innych? Jak możesz "przetłumaczyć" swój styl?
+    </div>
+    <div class="scenario-box" style="border-color: #b39ddb; font-size:0.85rem;">
+      <strong style="color: #b39ddb;">Dla liderów HR:</strong><br>
+      Jakie procesy w Twojej firmie faworyzują jedno pokolenie? Co należy zmienić, żeby były fair dla wszystkich?
+    </div>
+    <div class="scenario-box" style="border-color: #ffd54f; font-size:0.85rem;">
+      <strong style="color: #ffd54f;">Dla całego zespołu:</strong><br>
+      Jakie "umowy pokoleniowe" może wprowadzić Wasz zespół? Zasady pracy, które szanują różne style?
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:1.5rem;">
+    Pamiętaj: cel tego szkolenia nie jest to, żeby każde pokolenie "zrozumiało inne i przeprosiło za swoje wady". Celem jest zbudowanie wspólnego języka i wzajemnego szacunku, który pozwala budować lepsze zespoły — z różnorodności czerpiąc siłę, a nie problem.
+  </div>
+</div>
+
+<script>
+function switchTab(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function toggleGen(id) {
+  const body = document.getElementById('body-' + id);
+  const toggle = document.getElementById('toggle-' + id);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open');
+  toggle.classList.toggle('open');
+}
+
+function selectOpt(el, q) {
+  const parent = el.closest('.quiz-question');
+  parent.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+const answers = {};
+function selectOpt(el) {
+  const radio = el.querySelector('input[type="radio"]');
+  const name = radio.name;
+  answers[name] = radio.value;
+  el.closest('.quiz-question').querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  radio.checked = true;
+}
+
+function calculateQuiz() {
+  const scores = { bb: 0, x: 0, mil: 0, z: 0 };
+  const questions = ['q1','q2','q3','q4','q5','q6','q7','q8'];
+  let answered = 0;
+  questions.forEach(q => {
+    const checked = document.querySelector('input[name="' + q + '"]:checked');
+    if (checked) { scores[checked.value]++; answered++; }
+  });
+  if (answered < 6) { alert('Proszę odpowiedzieć na co najmniej 6 pytań.'); return; }
+
+  const sorted = Object.entries(scores).sort((a,b) => b[1]-a[1]);
+  const winner = sorted[0][0];
+
+  const profiles = {
+    bb: { name: 'Baby Boomer', color: '#b39ddb', emoji: 'BB', desc: 'Twoje postawy i wartości w dużej mierze odzwierciedlają pokolenie Baby Boomers — pracujesz z poczuciem obowiązku, szanujesz hierarchię i lojalność. Twoje doświadczenie i niezawodność to ogromny zasób dla każdego zespołu.', tips: ['Twoja siła: doświadczenie, stabilność, niezawodność — zadbaj o to, żeby młodsze pokolenia mogły z tego korzystać', 'Wyzwanie: spróbuj otworzyć się na feedback od młodszych — mają inne perspektywy, nie mniejsze', 'Komunikacja: gdy rozmawiasz z Gen Z lub Millenialsami, pytaj "dlaczego" i uzasadniaj swoje decyzje', 'Technologia: znajdź jedną nową cyfrową umiejętność w roku — to więcej niż myślisz'] },
+    x: { name: 'Generacja X', color: '#80cbc4', emoji: 'X', desc: 'Twoje nastawienie to Generacja X — pragmatyczna, niezależna, wynikocentryczna. Nie potrzebujesz oklasków, żeby dobrze pracować, a Twoja elastyczność i zaradność to rzadkie cechy na rynku.', tips: ['Twoja siła: adaptacyjność i bezpośredniość — w świecie zmian to bezcenne', 'Wyzwanie: Millenialsi potrzebują więcej feedbacku i uznania niż Ty — to nie słabość, to ich sposób funkcjonowania', 'Komunikacja: z BB — bądź cierpliwy na ich formalność; z Gen Z — pamiętaj, że szanują granice', 'Przywództwo: Twój styl "ufam, sprawdzam wyniki" to jeden z najskuteczniejszych — nie rezygnuj z niego'] },
+    mil: { name: 'Millenialsów (Generacja Y)', color: '#f48fb1', emoji: 'Y', desc: 'Twój profil to Millennial — napędzasz się sensem, relacjami i rozwojem. Jesteś naturalnym innowatorem i budowniczym kultury zespołowej, choć czasem potrzebujesz więcej zewnętrznej walidacji niż starsze pokolenia.', tips: ['Twoja siła: empatia, innowacyjność, kolaboracja — właśnie tego potrzebują nowoczesne firmy', 'Wyzwanie: naucz się przyjmować feedback bez defensywności — to narzędzie, nie atak', 'Komunikacja: z BB — formalizuj kontakt, okazuj szacunek dla doświadczenia; z Gen X — bądź konkretny, bez emocji', 'Granice: Gen Z potrafi wyznaczać granice — ucz się od nich, żeby nie wypalić się za 5 lat'] },
+    z: { name: 'Generację Z', color: '#4ecdc4', emoji: 'Z', desc: 'Twój profil to Gen Z — autentyczny, stawiający granice, pragmatyczny i cyfrowo biegły. Wniosisz do każdego zespołu świeżość, innowacyjność i zdrowe podejście do pracy. Twoja autentyczność jest siłą.', tips: ['Twoja siła: cyfrowa biegłość, autentyczność, zdrowe granice — pionierzy nowego modelu pracy', 'Wyzwanie: starsze pokolenia mogą odczytywać Twoje granice jako brak zaangażowania — komunikuj je aktywnie', 'Komunikacja: z BB i Gen X — okaż szacunek dla doświadczenia, nawet gdy się nie zgadzasz', 'Cierpliwość: nie wszystko dzieje się natychmiast. Długoterminowe projekty mają swoje tempo — i wartość'] }
+  };
+
+  const p = profiles[winner];
+  const resultBox = document.getElementById('quiz-result');
+  const content = document.getElementById('result-content');
+
+  content.innerHTML = '<div style="font-size:3rem; font-weight:700; font-family: Playfair Display, serif; color:' + p.color + '; margin-bottom:0.3rem;">' + p.emoji + '</div>' +
+    '<div class="result-gen" style="color:' + p.color + '">Twój profil odpowiada ' + p.name + '</div>' +
+    '<p class="result-desc">' + p.desc + '</p>' +
+    '<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:1rem;">' +
+    sorted.map(([k,v]) => {
+      const names = {bb:'BB',x:'Gen X',mil:'Millennial',z:'Gen Z'};
+      const colors = {bb:'#b39ddb',x:'#80cbc4',mil:'#f48fb1',z:'#4ecdc4'};
+      return '<div style="text-align:center;padding:8px;background:rgba(255,255,255,0.05);border-radius:8px;"><div style="font-size:1.2rem;font-weight:700;color:'+colors[k]+'">'+v+'</div><div style="font-size:0.72rem;color:var(--muted)">'+names[k]+'</div></div>';
+    }).join('') + '</div>' +
+    '<div class="result-tips"><h4>Twoje wskazówki dla lepszej komunikacji międzypokoleniowej</h4><ul>' +
+    p.tips.map(t => '<li>' + t + '</li>').join('') + '</ul></div>';
+
+  resultBox.classList.add('show');
+  resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+let selectedMe = null, selectedThem = null;
+const meButtons = [], themButtons = [];
+
+function selectGen(who, gen, el) {
+  const grid = el.parentElement;
+  grid.querySelectorAll('.comm-select-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  if (who === 'me') selectedMe = gen;
+  else selectedThem = gen;
+  if (selectedMe && selectedThem) showCommTips();
+}
+
+const commData = {
+  'bb-x': { title: 'Baby Boomer → Generacja X', tips: [
+    {icon:'✓', col:'#4ecdc4', text: 'Bądź bezpośredni i konkretny — Gen X nie potrzebuje długich wprowadzeń. Przejdź od razu do sedna.'},
+    {icon:'✓', col:'#4ecdc4', text: 'Deleguj i ufaj — jeśli prosisz o zadanie, daj im swobodę. Sprawdzanie każdego kroku to dla nich sygnał braku zaufania.'},
+    {icon:'✗', col:'#e94560', text: 'Nie wymagaj nadgodzin ani obecności poza godzinami pracy — dla Gen X granica praca/życie jest świętością.'},
+    {icon:'✗', col:'#e94560', text: 'Unikaj formalizmu dla formalizmu — długie, oficjalne spotkania bez celu to strata ich czasu.'},
+    {icon:'→', col:'#f5a623', text: 'Most porozumienia: doceniaj ich wyniki publicznie — rzadko tego potrzebują, ale gdy to robisz, budujesz zaufanie.'}
+  ]},
+  'bb-mil': { title: 'Baby Boomer → Millennial', tips: [
+    {icon:'✓', col:'#4ecdc4', text: 'Wyjaśniaj "dlaczego" za każdą decyzją — Millenialsi potrzebują sensu i kontekstu, żeby się zaangażować.'},
+    {icon:'✓', col:'#4ecdc4', text: 'Dawaj regularny, konkretny feedback — nie czekaj na roczną ocenę. Krótkie "widzę twoją pracę, dobra robota" robi ogromną różnicę.'},
+    {icon:'✗', col:'#e94560', text: 'Nie zakładaj, że "starszy = mądrzejszy" — Millenialsi szanują kompetencje i otwartość, nie sam staż.'},
+    {icon:'✗', col:'#e94560', text: 'Unikaj stwierdzenia "bo zawsze tak robiliśmy" — to ich największy demotywator.'},
+    {icon:'→', col:'#f5a623', text: 'Most porozumienia: zaproponuj rolę mentora formalnie — Millenialsi uwielbiają uczyć się od doświadczonych, jeśli relacja jest oparta na szacunku, nie hierarchii.'}
+  ]},
+  'bb-z': { title: 'Baby Boomer → Generacja Z', tips: [
+    {icon:'✓', col:'#4ecdc4', text: 'Pisz krótko i konkretnie — długie maile nie będą czytane w całości. Jeden mail = jeden temat.'},
+    {icon:'✓', col:'#4ecdc4', text: 'Szanuj granice godzinowe — nie oczekuj odpowiedzi po 17:00. To nie lenistwo, to zdrowe podejście.'},
+    {icon:'✗', col:'#e94560', text: 'Nie używaj autorytetu stażu — "mam 30 lat doświadczenia" nie przekona ich. Pokaż co konkretnie z tego wynika.'},
+    {icon:'✗', col:'#e94560', text: 'Unikaj niejasności w wynagrodzeniach i oczekiwaniach — Gen Z oczekuje totalnej transparentności.'},
+    {icon:'→', col:'#f5a623', text: 'Most porozumienia: zapytaj ich o zdanie na temat nowych narzędzi lub trendów — to wzmacnia ich zaangażowanie i Ty możesz czegoś nowego się nauczyć.'}
+  ]},
+  'x-bb': { title: 'Generacja X → Baby Boomer', tips: [
+    {icon:'✓', col:'#4ecdc4', text: 'Okazuj szacunek dla doświadczenia — nawet jeśli się nie zgadzasz, zacznij od uznania wiedzy BB.'},
+    {icon:'✓', col:'#4ecdc4', text: 'Komunikuj się bezpośrednio, ale formalnie — telefon lub spotkanie zamiast szybkiego SMS-a.'},
+    {icon:'✗', col:'#e94560', text: 'Nie pomijaj ich w procesach decyzyjnych — BB odbierają to jako brak szacunku, nie efektywność.'},
+    {icon:'✗', col:'#e94560', text: 'Unikaj cynizmu i ironii w kontakcie z BB — może być odebrana jako arogancja.'},
+    {icon:'→', col:'#f5a623', text: 'Most porozumienia: proś o radę i historię. "Jak to wyglądało wcześniej?" otwiera BB i buduje relację.'}
+  ]},
+  'x-mil': { title: 'Generacja X → Millennial', tips: [
+    {icon:'✓', col:'#4ecdc4', text: 'Daj więcej feedbacku niż uważasz za potrzebne — to, co dla Ciebie jest naturalne, dla Milleniala to niedostatek.'},
+    {icon:'✓', col:'#4ecdc4', text: 'Tłumacz decyzje — Twoja bezpośredniość bywa odbierana jako brak zainteresowania ich rozwojem.'},
+    {icon:'✗', col:'#e94560', text: 'Nie mów "jak byłem w twoim wieku, nikt mi nie tłumaczył" — to zamyka dialog.'},
+    {icon:'✗', col:'#e94560', text: 'Unikaj chłodności emocjonalnej — Millenialsi budują relację przez emocje, Ty możesz im się wydawać niedostępny.'},
+    {icon:'→', col:'#f5a623', text: 'Most porozumienia: Twoja autonomia i ich potrzeba sensu są kompatybilne — deleguj zadania z kontekstem i celem, a będziesz miał idealnego pracownika.'}
+  ]},
+  'x-z': { title: 'Generacja X → Generacja Z', tips: [
+    {icon:'✓', col:'#4ecdc4', text: 'Twoja filozofia "wyniki, nie godziny" jest dokładnie tym, czego Gen Z chce — jesteś dla nich naturalnym sojusznikiem.'},
+    {icon:'✓', col:'#4ecdc4', text: 'Bądź transparentny w kwestii wynagrodzeń i awansów — Gen Z tego wymaga, a Ty raczej nie masz problemu z bezpośredniością.'},
+    {icon:'✗', col:'#e94560', text: 'Nie bagatelizuj rozmów o zdrowiu psychicznym — dla Gen Z to poważna kwestia, nie "miękkość".'},
+    {icon:'✗', col:'#e94560', text: 'Unikaj nadmiernego sceptycyzmu wobec ich pomysłów — mogą być naiwne, ale warto słuchać.'},
+    {icon:'→', col:'#f5a623', text: 'Most porozumienia: Wasze wartości są zbliżone bardziej niż myślisz — niezależność, wyniki, anty-biurokracja. Powiedz im o tym wprost.'}
+  ]},
+  'mil-bb': { title: 'Millennial → Baby Boomer', tips: [
+    {icon:'✓', col:'#4ecdc4', text: 'Okazuj szacunek dla doświadczenia — zanim zaproponujesz nowe rozwiązanie, zapytaj "jak to wyglądało wcześniej?"'},
+    {icon:'✓', col:'#4ecdc4', text: 'Komunikuj się formalniej niż normalnie — tytuły, formy grzecznościowe, bezpośredni kontakt.'},
+    {icon:'✗', col:'#e94560', text: 'Nie zakładaj, że "stary" oznacza "opóźniony" — to ich największa uraza.'},
+    {icon:'✗', col:'#e94560', text: 'Unikaj dawania feedbacku odwrotnego bez zaproszenia — BB mogą odebrać to jako brak szacunku.'},
+    {icon:'→', col:'#f5a623', text: 'Most porozumienia: zaproponuj tandem — Ty przynosisz nowe narzędzia i perspektywy, oni wnoszą wiedzę i kontakty. To deal dla obu stron.'}
+  ]},
+  'mil-x': { title: 'Millennial → Generacja X', tips: [
+    {icon:'✓', col:'#4ecdc4', text: 'Bądź konkretny i wynikocentryczny — Gen X szanuje pracę, nie rozmowy o pracy.'},
+    {icon:'✓', col:'#4ecdc4', text: 'Nie oczekuj, że będą Cię emocjonalnie wspierać — to nie ich rola w ich rozumieniu.'},
+    {icon:'✗', col:'#e94560', text: 'Nie pytaj o feedback co tydzień jeśli nie masz ku temu powodu — mogą to uznać za niepewność lub uzależnienie.'},
+    {icon:'✗', col:'#e94560', text: 'Unikaj zbyt emocjonalnego podejścia do konfliktów — Gen X woli rozwiązywać pragmatycznie, nie terapeutycznie.'},
+    {icon:'→', col:'#f5a623', text: 'Most porozumienia: Gen X i Millenialsi dzielą potrzebę work-life balance i niechęć do mikrozarządzania — to mocny wspólny grunt.'}
+  ]},
+  'mil-z': { title: 'Millennial → Generacja Z', tips: [
+    {icon:'✓', col:'#4ecdc4', text: 'Szanuj granice — nie pisz po godzinach, nie zakładaj dostępności.'},
+    {icon:'✓', col:'#4ecdc4', text: 'Dawaj autonomię i sens — tak samo jak Ty potrzebujesz "dlaczego", oni też.'},
+    {icon:'✗', col:'#e94560', text: 'Nie oczekuj lojalności z automatu — musisz ją zbudować wartościami i kulturą, nie stanowiskiem.'},
+    {icon:'✗', col:'#e94560', text: 'Unikaj hyper-optymizmu bez pokrycia — Gen Z jest pragmatyczna i wyczuje corporate speak.'},
+    {icon:'→', col:'#f5a623', text: 'Most porozumienia: Millenialsi i Gen Z są najbliżej siebie wartościowo — zdrowie psychiczne, sens pracy, inkluzywność. Buduj na tym.'}
+  ]},
+  'z-bb': { title: 'Generacja Z → Baby Boomer', tips: [
+    {icon:'✓', col:'#4ecdc4', text: 'Okazuj szacunek dla wiedzy i doświadczenia — nawet gdy ich metody wydają się przestarzałe.'},
+    {icon:'✓', col:'#4ecdc4', text: 'Komunikuj się bezpośrednio i bez skrótów — nie zakładaj, że wiedzą o czym piszesz na Slacku.'},
+    {icon:'✗', col:'#e94560', text: 'Nie komunikuj wyłącznie przez aplikacje — zadzwoń lub przyjdź osobiście gdy coś jest ważne.'},
+    {icon:'✗', col:'#e94560', text: 'Unikaj mówienia "to przestarzałe" bez zaproponowania alternatywy — to zamyka dialog.'},
+    {icon:'→', col:'#f5a623', text: 'Most porozumienia: BB mają sieć i doświadczenie, Ty masz technologię i świeżość. Zaproponuj wymianę wiedzy — to rare deal.'}
+  ]},
+  'z-x': { title: 'Generacja Z → Generacja X', tips: [
+    {icon:'✓', col:'#4ecdc4', text: 'Bądź konkretny i wynikocentryczny — Gen X szanuje działanie bardziej niż deklaracje.'},
+    {icon:'✓', col:'#4ecdc4', text: 'Wyrażaj swoje granice wprost i spokojnie — Gen X to doceni bardziej niż pasywną rezygnację.'},
+    {icon:'✗', col:'#e94560', text: 'Nie oczekuj, że będą regularnie "checkować Twój wellbeing" — to nie ich naturalne zachowanie.'},
+    {icon:'✗', col:'#e94560', text: 'Unikaj nadmiernej wrażliwości na ironię lub bezpośredniość — to język Gen X, nie atak.'},
+    {icon:'→', col:'#f5a623', text: 'Most porozumienia: Macie zbliżone wartości — niezależność, anty-biurokracja, wyniki. Powiedz im to wprost, buduje to zaufanie.'}
+  ]},
+  'z-mil': { title: 'Generacja Z → Millennial', tips: [
+    {icon:'✓', col:'#4ecdc4', text: 'Angażuj się w misję firmy — Millenialsi są nakręcani sensem i chcą widzieć, że Ty też w to wierzysz.'},
+    {icon:'✓', col:'#4ecdc4', text: 'Dawaj i proś o feedback — to ich naturalne środowisko, odzew na odzew buduje relację.'},
+    {icon:'✗', col:'#e94560', text: 'Nie odbieraj ich entuzjazmu jako naiwności — to ich motor, nie wada.'},
+    {icon:'✗', col:'#e94560', text: 'Unikaj nadmiernego dystansu emocjonalnego — Millenialsi budują przez relacje.'},
+    {icon:'→', col:'#f5a623', text: 'Most porozumienia: razem możecie być potężnym duetem — ich kolaboracja i doświadczenie + Twoja cyfrowa biegłość i autentyczność.'}
+  ]}
+};
+
+function showCommTips() {
+  const key = selectedMe + '-' + selectedThem;
+  const result = document.getElementById('comm-result');
+  const title = document.getElementById('comm-result-title');
+  const body = document.getElementById('comm-result-body');
+
+  if (selectedMe === selectedThem) {
+    title.textContent = 'Komunikacja wewnątrzpokoleniowa';
+    body.innerHTML = '<p style="color:#ddd;font-size:0.9rem;">Rozmawiasz z kimś z tego samego pokolenia — macie wspólny język i zbliżone wartości. To ułatwia komunikację, ale może też tworzyć "echo chamber". Zwróć uwagę na indywidualne różnice wewnątrz pokolenia i nie zakładaj pełnej zgodności postaw.</p>';
+    result.classList.add('show');
+    return;
+  }
+
+  const data = commData[key] || commData[selectedThem + '-' + selectedMe];
+  if (!data) { result.classList.add('show'); body.innerHTML = '<p style="color:#ddd">Brak danych dla tej kombinacji — spróbuj innej.</p>'; return; }
+
+  title.textContent = data.title;
+  body.innerHTML = data.tips.map(t =>
+    '<div class="comm-tip"><div class="comm-tip-icon" style="background:' + t.col + '22;color:' + t.col + ';border:1px solid ' + t.col + '44">' + t.icon + '</div><span>' + t.text + '</span></div>'
+  ).join('');
+  result.classList.add('show');
+  result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+const valueData = [
+  { name: 'Stabilność pracy', bb: 10, x: 7, mil: 5, z: 4 },
+  { name: 'Awans przez staż', bb: 9, x: 4, mil: 3, z: 2 },
+  { name: 'Work-life balance', bb: 4, x: 8, mil: 8, z: 10 },
+  { name: 'Sens i misja', bb: 5, x: 5, mil: 10, z: 9 },
+  { name: 'Wynagrodzenie', bb: 7, x: 9, mil: 7, z: 8 },
+  { name: 'Rozwój zawodowy', bb: 5, x: 7, mil: 10, z: 8 },
+  { name: 'Inkluzywność DEI', bb: 3, x: 5, mil: 8, z: 10 },
+  { name: 'Technologia', bb: 4, x: 7, mil: 8, z: 10 },
+  { name: 'Autonomia', bb: 4, x: 10, mil: 7, z: 9 },
+  { name: 'Zdrowie psychiczne', bb: 3, x: 5, mil: 7, z: 10 }
+];
+
+const colors = { bb: '#b39ddb', x: '#80cbc4', mil: '#f48fb1', z: '#4ecdc4' };
+
+function renderValueBars() {
+  const container = document.getElementById('value-bars');
+  if (!container) return;
+  container.innerHTML = valueData.map(row => {
+    const bars = ['bb','x','mil','z'].map(g => {
+      const pct = row[g] * 10;
+      return '<div style="display:grid;grid-template-columns:130px 1fr 28px;align-items:center;gap:8px;margin-bottom:3px;font-size:0.78rem;">' +
+        (g === 'bb' ? '<span style="color:var(--muted);font-size:0.78rem;">' + row.name + '</span>' : '<span></span>') +
+        '<div style="background:rgba(255,255,255,0.07);border-radius:4px;height:7px;"><div style="width:' + pct + '%;background:' + colors[g] + ';height:7px;border-radius:4px;"></div></div>' +
+        '<span style="color:' + colors[g] + ';font-weight:600;text-align:right">' + row[g] + '</span></div>';
+    }).join('');
+    return '<div style="margin-bottom:0.7rem;">' + bars + '</div>';
+  }).join('');
+}
+
+setTimeout(renderValueBars, 100);
+</script>
